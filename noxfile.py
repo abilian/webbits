@@ -9,8 +9,10 @@ nox.options.reuse_existing_virtualenvs = True
 
 @nox.session(python=DEFAULT_PYTHON_VERSION)
 def lint(session: nox.Session) -> None:
-    session.install("-e", ".[dev]")
+    session.install("poetry")
+    session.run("poetry", "install", "--quiet")
     session.run("pip", "check")
+    session.run("poetry", "check")
 
     session.run("make", "lint", external=True)
 

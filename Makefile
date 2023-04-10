@@ -10,6 +10,8 @@ all: test lint
 #
 # Setup
 #
+
+## Install development dependencies and pre-commit hook (env must be already activated)
 develop: install-deps activate-pre-commit configure-git
 
 install-deps:
@@ -29,24 +31,16 @@ configure-git:
 #
 # testing & checking
 #
-test-all: test test-readme
+.PHONY: test test-randomly test-with-coverage test-with-typeguard clean-test lint audit
 
-test: ## run tests quickly with the default Python
+## Run python tests
+test:
 	@echo "--> Running Python tests"
 	pytest --ff -x -p no:randomly
 	@echo ""
 
 test-randomly:
 	@echo "--> Running Python tests in random order"
-	pytest
-	@echo ""
-
-clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
-	rm -f .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
-
 	pytest
 	@echo ""
 
@@ -60,20 +54,16 @@ test-with-typeguard:
 	pytest --typeguard-packages=${PKG}
 	@echo ""
 
-vagrant-tests:
-	vagrant up
-	vagrant ssh -c /vagrant/deploy/vagrant_test.sh
+## Cleanup tests artifacts
+clean-test: ## remove test and coverage artifacts
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr htmlcov/
+	rm -fr .pytest_cache
 
-
-#
-# Linting
-#
-.PHONY: lint/ruff
-lint/ruff:
-	ruff src tests/test*.py
-
-.PHONY: lint
+## Lint / check typing
 lint:
+	# adt check src tests
 	ruff src tests/test*.py
 	mypy --show-error-codes src
 	flake8 src tests/test*.py
@@ -85,7 +75,6 @@ lint:
 	# lint-imports
 	# make hadolint
 
-.PHONY: audit
 audit:
 	pip-audit
 	safety check
@@ -97,15 +86,18 @@ audit:
 
 format: format-py
 
-format-py:
+## Format / beautify code
+format:
 	docformatter -i -r src
-	black src tests
+	black src
 	isort src tests
-
 
 #
 # Everything else
 #
+help:
+	@inv help-make
+
 install:
 	poetry install
 
@@ -118,6 +110,7 @@ doc-pdf:
 	sphinx-build -W -b latex docs/ docs/_build/latex
 	make -C docs/_build/latex all-pdf
 
+## Cleanup repository
 clean:
 	rm -f **/*.pyc
 	find . -type d -empty -delete
@@ -125,16 +118,20 @@ clean:
 		.pytest_cache .pytest .DS_Store  docs/_build docs/cache docs/tmp \
 		dist build pip-wheel-metadata junit-*.xml htmlcov coverage.xml
 
+## Cleanup harder
 tidy: clean
-	rm -rf .tox .nox .dox .travis-solo
+	rm -rf .nox
 	rm -rf node_modules
 	rm -rf instance
 
+## Update dependencies
 update-deps:
 	pip install -U pip setuptools wheel
 	poetry update
 
+## Publish to PyPI
 publish: clean
+	git push
 	git push --tags
 	poetry build
 	twine upload dist/*
