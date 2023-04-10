@@ -1,0 +1,173 @@
+[tool]
+[tool.poetry]
+name = "webbits"
+version = "0.1.0"
+homepage = "https://github.com/sfermigier/webbits"
+description = "Top-level package for Webbits."
+authors = ["Abilian SAS <sf@abilian.com>"]
+readme = "README.rst"
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+]
+packages = [
+    { include = "webbits", from = "src" },
+    { include = "tests", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4"
+defusedxml = "^0.7.1"
+
+[tool.poetry.group.dev.dependencies]
+## Standard cruft
+abilian-devtools = "*"
+
+# Cruft (project templates management)
+cruft = "*"
+toml = "*"
+
+## /standard cruft
+freezegun = "^1.2.2"
+docformatter = "^1.6.0"
+bandit = "^1.7.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# ---
+
+[tool.isort]
+profile = "black"
+
+# ---
+
+# pyproject.toml
+[tool.pytest.ini_options]
+filterwarnings = [
+#    'ignore:.*contextfunction.*:DeprecationWarning',
+#    'ignore:.*Unmanaged.*:sqlalchemy.exc.SAWarning'
+]
+addopts = "--tb=short"
+testpaths = [
+    "tests",
+    "src",
+]
+
+# ---
+
+[tool.ruff]
+select = [
+    "F",
+    "E",
+    "C90",
+    "I",
+    "UP",
+    "N",
+    "YTT",
+    "B",
+    "A",
+    "C4",
+    "ICN",
+    "Q",
+    "S",
+    "BLE",
+    "RET",
+    "SIM",
+    "TID",
+    "RUF",
+    "PLC", "PLE", "PLR", "PLW",
+]
+# Add later: "ANN", "ERA"...
+
+ignore = [
+    "S101",  # Use of `assert` detected
+    "I001",  # Import block is un-sorted or un-formatted (WHY!?)
+    "PLR2004",  # Magic number
+    "A002",  # Shadowing a built-in
+]
+
+# ---
+
+[tool.bandit]
+skips = [
+  "B404", # blacklist
+  "B603", # subprocess_without_shell_equals_true
+]
+
+# ---
+
+[tool.pyright]
+exclude = [
+    '.tox',
+    '.nox',
+    'tests',
+    'sandbox',
+    'doc',
+    'scripts',
+    'tmp',
+]
+include = ["src"]
+
+# pyright has issues with modules imported from a root __init__.py
+reportPrivateImportUsage = false
+
+# Temp
+reportGeneralTypeIssues = false
+reportMissingImports = false
+reportOptionalSubscript = false
+
+# ---
+
+[tool.pyanalyze]
+paths = ["src/"]
+import_paths = ["."]
+
+# Additional checks
+bare_ignore = true
+missing_f = true
+use_fstrings = true
+value_always_true = true
+
+# TODO: fix issues and activate
+#unused_ignore = true
+#enforce_no_unused = true
+#incompatible_override = true
+#missing_parameter_annotation = true
+#missing_return_annotation = true
+#suggested_parameter_type = true
+#suggested_return_type = true
+#use_fstrings = true
+#value_always_true = true
+
+# TODO: fix issues and remove
+attribute_is_never_set = false
+duplicate_dict_key = false
+import_failed = false
+impossible_pattern = false
+incompatible_argument = false
+incompatible_call = false
+incompatible_return_value = false
+internal_error = false
+missing_return = false
+possibly_undefined_name = false
+undefined_attribute = false
+unused_variable = false
+
+# ---
+
+[tool.deptry]
+ignore_obsolete = [
+]
+ignore_missing = [
+]
+ignore_transitive = [
+]
+exclude = [
+    '.tox', 'tests', 'sandbox', 'doc', 'scripts',
+]

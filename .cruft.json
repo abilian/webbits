@@ -1,0 +1,21 @@
+{
+  "template": "git@github.com:abilian/cookiecutter-abilian-python.git",
+  "commit": "35d7cb22d565331429660019e3422332d21897d1",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Abilian SAS",
+      "email": "sf@abilian.com",
+      "github_username": "sfermigier",
+      "project_name": "Webbits",
+      "project_slug": "webbits",
+      "project_short_description": "Web components for Python.",
+      "pypi_username": "sfermigier",
+      "version": "0.1.0",
+      "add_pyup_badge": "n",
+      "open_source_license": "Apache Software License 2.0",
+      "_template": "git@github.com:abilian/cookiecutter-abilian-python.git"
+    }
+  },
+  "directory": null
+}
