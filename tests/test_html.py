@@ -19,23 +19,27 @@ def test_with_attrs():
 def test_attrs():
     h = html()
     h.div(class_="test", id="test")
-    assert str(h) == "<div class=\"test\" id=\"test\" />"
+    assert str(h) == '<div class="test" id="test" />'
 
     h = html()
     h.div(**{"class": "test", "id": "test"})
-    assert str(h) == "<div class=\"test\" id=\"test\" />"
+    assert str(h) == '<div class="test" id="test" />'
 
     h = html()
     h.div(class_=["test1", "test2"], id="test")
-    assert str(h) == "<div class=\"test1 test2\" id=\"test\" />"
+    assert str(h) == '<div class="test1 test2" id="test" />'
 
     h = html()
     h.div(hidden=True, id="test")
-    assert str(h) == "<div hidden id=\"test\" />"
+    assert str(h) == '<div hidden id="test" />'
 
     h = html()
     h.div(hidden=False, id="test")
-    assert str(h) == "<div id=\"test\" />"
+    assert str(h) == '<div id="test" />'
+
+    h = html()
+    h.div(count=1, id="test")
+    assert str(h) == '<div count="1" id="test" />'
 
 
 @freeze_time("2023-03-14")

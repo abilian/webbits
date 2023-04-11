@@ -2,14 +2,14 @@
 
 [[package]]
 name = "abilian-devtools"
-version = "0.4.16"
+version = "0.4.18"
 description = "A curated set of dependencies for quality software development"
 category = "dev"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "abilian_devtools-0.4.16-py3-none-any.whl", hash = "sha256:d0f85cde9127939e521f38cf3e390f151fbc49f2e964f8d9babc433ef3bbc03d"},
-    {file = "abilian_devtools-0.4.16.tar.gz", hash = "sha256:78a1333860bc59b2aab540233545667a38106a8ee95f1877c1e592d2569d870f"},
+    {file = "abilian_devtools-0.4.18-py3-none-any.whl", hash = "sha256:57b94bd8e6b93cd1daf45d0dcc91112ae8be69d6b3466980060129930df61a32"},
+    {file = "abilian_devtools-0.4.18.tar.gz", hash = "sha256:5cc90e297066c323f886f4d7124babff07be701b3d6f1941893968451fe0160a"},
 ]
 
 [package.dependencies]
@@ -739,14 +739,14 @@ flake8 = ">=3.0.0"
 
 [[package]]
 name = "flake8-functions"
-version = "0.0.7"
+version = "0.0.8"
 description = "A flake8 extension that checks functions"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "flake8_functions-0.0.7-py3-none-any.whl", hash = "sha256:f2f75545c2b0df9eeba0ad316e2ac38c101676970b4441300fc07af3226a44f6"},
-    {file = "flake8_functions-0.0.7.tar.gz", hash = "sha256:40584b05d57e5ab185545bcfa08aa0edca52b04646d0df266e2b1667d6437184"},
+    {file = "flake8_functions-0.0.8-py3-none-any.whl", hash = "sha256:e1a88aa634d1aff6973f8c9dd64f30ab2beaac661e52eea96929ccc7ee7f64df"},
+    {file = "flake8_functions-0.0.8.tar.gz", hash = "sha256:5446626673a9faecbf389fb411b90bdc87b002c387b72dc097b208e7a58f2a1c"},
 ]
 
 [package.dependencies]
