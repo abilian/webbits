@@ -136,8 +136,9 @@ class Element:
                 case _:
                     self.builder.write(f" {attr_name}={quoteattr(str(value))}")
 
-        for arg in args:
-            self.content += escape(arg)
+        self.content = " ".join(escape(str(arg)) for arg in args)
+        # for arg in args:
+        #     self.content += escape(arg)
 
         return self
 

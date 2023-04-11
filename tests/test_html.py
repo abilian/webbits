@@ -4,17 +4,7 @@ from unittest import skip
 from dateutil.tz import UTC
 from freezegun import freeze_time
 
-from webbits.html import h, html
-
-
-def test_without_attrs():
-    assert h("h1", "test") == "<h1>test</h1>"
-    assert h("h1", ["test", "toto"]) == "<h1>test\ntoto</h1>"
-
-
-def test_with_attrs():
-    assert h("h1", {}, _=["test"]) == "<h1>test</h1>"
-    assert h("h1", {"class": "large"}, ["test", "toto"]) == "<h1>test\ntoto</h1>"
+from webbits.html import html
 
 
 def test_attrs():
@@ -48,6 +38,20 @@ def test_nested():
     with h.ul():
         h.li("Blah")
     assert str(h) == "<ul>\n <li>Blah</li>\n</ul>"
+
+
+def test_non_str():
+    h = html()
+    h.div(1)
+    assert str(h) == "<div>1</div>"
+
+    h = html()
+    h.div([1, 2, 3])
+    assert str(h) == "<div>[1, 2, 3]</div>"
+
+    h = html()
+    h.div(1, 2, 3)
+    assert str(h) == "<div>1 2 3</div>"
 
 
 @skip
