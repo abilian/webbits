@@ -122,10 +122,24 @@ class Element:
 
     def __call__(self, *args, **kargs):
         """Add content & attributes to the opened tag."""
+
         for attr, value in sorted(kargs.items()):
-            self.builder.write(f" {self._nameprep(attr)}={quoteattr(value)}")
+            attr_name = self._nameprep(attr)
+            match value:
+                case True:
+                    self.builder.write(f" {attr_name}")
+                case False:
+                    pass
+                case str(v):
+                    self.builder.write(f" {attr_name}={quoteattr(value)}")
+                case [*v]:
+                    self.builder.write(f" {attr_name}={quoteattr(' '.join(value))}")
+                case _:
+                    self.builder.write(f" {attr_name}={quoteattr(str(value))}")
+
         for arg in args:
             self.content += escape(arg)
+
         return self
 
     def __del__(self):

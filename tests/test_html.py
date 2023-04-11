@@ -16,6 +16,28 @@ def test_with_attrs():
     assert h("h1", {"class": "large"}, ["test", "toto"]) == "<h1>test\ntoto</h1>"
 
 
+def test_attrs():
+    h = html()
+    h.div(class_="test", id="test")
+    assert str(h) == "<div class=\"test\" id=\"test\" />"
+
+    h = html()
+    h.div(**{"class": "test", "id": "test"})
+    assert str(h) == "<div class=\"test\" id=\"test\" />"
+
+    h = html()
+    h.div(class_=["test1", "test2"], id="test")
+    assert str(h) == "<div class=\"test1 test2\" id=\"test\" />"
+
+    h = html()
+    h.div(hidden=True, id="test")
+    assert str(h) == "<div hidden id=\"test\" />"
+
+    h = html()
+    h.div(hidden=False, id="test")
+    assert str(h) == "<div id=\"test\" />"
+
+
 @freeze_time("2023-03-14")
 def test_advanced():
     h = html()
