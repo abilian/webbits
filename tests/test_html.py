@@ -1,4 +1,5 @@
 from datetime import datetime
+from unittest import skip
 
 from dateutil.tz import UTC
 from freezegun import freeze_time
@@ -39,6 +40,20 @@ def test_attrs():
 
     h = html()
     h.div(count=1, id="test")
+    assert str(h) == '<div count="1" id="test" />'
+
+
+def test_nested():
+    h = html()
+    with h.ul():
+        h.li("Blah")
+    assert str(h) == "<ul>\n <li>Blah</li>\n</ul>"
+
+
+@skip
+def test_nested_fail():
+    h = html()
+    h.ul(h.li())
     assert str(h) == '<div count="1" id="test" />'
 
 

@@ -88,9 +88,8 @@ format: format-py
 
 ## Format / beautify code
 format:
+	adt format
 	docformatter -i -r src
-	black src
-	isort src tests
 
 #
 # Everything else
