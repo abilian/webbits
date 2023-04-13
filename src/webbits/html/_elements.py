@@ -8,6 +8,7 @@ from io import StringIO
 from xml.sax.saxutils import escape, quoteattr
 
 import defusedxml
+from markupsafe import Markup
 
 from ._constants import html_tags
 
@@ -136,9 +137,12 @@ class Element:
                 case _:
                     self.builder.write(f" {attr_name}={quoteattr(str(value))}")
 
-        self.content = " ".join(escape(str(arg)) for arg in args)
-        # for arg in args:
-        #     self.content += escape(arg)
+        content = [
+            str(arg) if isinstance(arg, Markup)
+            else escape(str(arg))
+            for arg in args
+        ]
+        self.content = " ".join(content)
 
         return self
 

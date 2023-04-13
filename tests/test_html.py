@@ -3,6 +3,7 @@ from unittest import skip
 
 from dateutil.tz import UTC
 from freezegun import freeze_time
+from markupsafe import Markup
 
 from webbits.html import html
 
@@ -59,6 +60,13 @@ def test_nested_fail():
     h = html()
     h.ul(h.li())
     assert str(h) == '<div count="1" id="test" />'
+
+
+def test_safe():
+    inner = Markup("<span>123</span>")
+    h = html()
+    h.div(inner)
+    assert str(h) == f"<div>{inner}</div>"
 
 
 @freeze_time("2023-03-14")

@@ -22,6 +22,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.9,<4"
 defusedxml = "^0.7.1"
+markupsafe = "^2.1.2"
 
 [tool.poetry.group.dev.dependencies]
 ## Standard cruft
