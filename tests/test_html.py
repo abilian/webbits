@@ -62,10 +62,20 @@ def test_nested_fail():
     assert str(h) == '<div count="1" id="test" />'
 
 
-def test_safe():
-    inner = Markup("<span>123</span>")
+def test_attrs_as_dict():
+    h = html()
+    h.div({"class": "test", "id": "test"})
+    assert str(h) == '<div class="test" id="test" />'
+
+
+def test_markup():
+    inner = "<span>123</span>"
     h = html()
     h.div(inner)
+    assert str(h) == f"<div>&lt;span&gt;123&lt;/span&gt;</div>"
+
+    h = html()
+    h.div(Markup(inner))
     assert str(h) == f"<div>{inner}</div>"
 
 

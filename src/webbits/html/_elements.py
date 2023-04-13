@@ -121,9 +121,15 @@ class Element:
         self.builder.dedent()
         self.builder.write_indented(f"</{self.name}>")
 
-    def __call__(self, *args, **kargs):
+    def __call__(self, *args, **kwargs):
         """Add content & attributes to the opened tag."""
-        for attr, value in sorted(kargs.items()):
+        children = [arg for arg in args if not isinstance(arg, dict)]
+        attrs = kwargs
+        for arg in args:
+            if isinstance(arg, dict):
+                attrs.update(arg)
+
+        for attr, value in sorted(attrs.items()):
             attr_name = self._nameprep(attr)
             match value:
                 case True:
@@ -138,9 +144,8 @@ class Element:
                     self.builder.write(f" {attr_name}={quoteattr(str(value))}")
 
         content = [
-            str(arg) if isinstance(arg, Markup)
-            else escape(str(arg))
-            for arg in args
+            str(child) if isinstance(child, Markup) else escape(str(child))
+            for child in children
         ]
         self.content = " ".join(content)
 
