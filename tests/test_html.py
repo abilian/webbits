@@ -72,7 +72,7 @@ def test_markup():
     inner = "<span>123</span>"
     h = html()
     h.div(inner)
-    assert str(h) == f"<div>&lt;span&gt;123&lt;/span&gt;</div>"
+    assert str(h) == "<div>&lt;span&gt;123&lt;/span&gt;</div>"
 
     h = html()
     h.div(Markup(inner))

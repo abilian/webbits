@@ -1,39 +1,32 @@
-from functools import singledispatch
+from xml.sax.saxutils import quoteattr
 
 
-@singledispatch
-def h(*args, **kw):
-    pass
-
-
-@h.register
-def h_list(list_: list) -> str:
-    return "\n".join(list_)
-
-
-@h.register
-def h_other(tag: str, *args, **kw):
+def h(tag: str, *args, **kw):
     attrs = {}
     children = []
 
-    if len(args) == 0:
-        pass
-
-    elif isinstance(args[0], dict):
-        attrs = args[0]
-        if len(args) == 2:
-            children = args[1]
-
-    elif isinstance(args[0], str):
-        children = [args[0]]
-
-    elif isinstance(args[0], list):
-        children = args[0]
+    for arg in args:
+        if isinstance(arg, dict):
+            for k, v in arg.items():
+                attrs[k] = v
+        elif isinstance(arg, list):
+            children += arg
+        else:
+            children.append(str(arg))
 
     for k, v in kw.items():
         if k == "_":
-            children = v
+            if isinstance(v, list):
+                children += v
+            else:
+                children.append(v)
         else:
-            attrs[k] = v
+            attr_name = k
+            if attr_name.endswith("_"):
+                attr_name = attr_name[:-1]
+            attr_name = attr_name.replace("_", "-")
+            attrs[attr_name] = v
 
-    return f"<{tag}>{h(children)}</{tag}>"
+    attrs_str = "".join(f" {k}={quoteattr(v)}" for k, v in attrs.items())
+
+    return f"<{tag}{attrs_str}>{' '.join(children)}</{tag}>"
