@@ -1,6 +1,6 @@
 import nox
 
-PYTHON_VERSIONS = ["3.9", "3.10", "3.11"]
+PYTHON_VERSIONS = ["3.10", "3.11"]
 DEFAULT_PYTHON_VERSION = PYTHON_VERSIONS[-1]
 
 nox.options.sessions = ["lint", "pytest"]
