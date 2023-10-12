@@ -23,3 +23,4 @@ def test_with_attrs():
     assert h("h1", **{"class": "lg"}) == '<h1 class="lg"></h1>'
     assert h("h1", class_="lg") == '<h1 class="lg"></h1>'
     assert h("h1", a_b="1") == '<h1 a-b="1"></h1>'
+
