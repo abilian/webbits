@@ -64,7 +64,7 @@ clean-test: ## remove test and coverage artifacts
 ## Lint / check typing
 lint:
 	# adt check src tests
-	ruff src tests/test*.py
+	ruff check src tests/test*.py
 	mypy --show-error-codes src
 	flake8 src tests/test*.py
 	vulture --min-confidence 80 src

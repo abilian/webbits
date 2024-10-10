@@ -1,4 +1,6 @@
-[tool]
+[project]
+name = "webbits"
+
 [tool.poetry]
 name = "webbits"
 version = "0.1.2"
@@ -22,7 +24,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10"
 defusedxml = "^0.7.1"
-markupsafe = "^2.1.2"
+markupsafe = "^2"
 
 [tool.poetry.group.dev.dependencies]
 ## Standard cruft
@@ -31,8 +33,8 @@ abilian-devtools = "*"
 # Cruft (project templates management)
 cruft = "*"
 toml = "*"
-
 ## /standard cruft
+
 freezegun = "^1.2.2"
 docformatter = "^1.6.0"
 bandit = "^1.7.5"
