@@ -3,7 +3,7 @@ name = "webbits"
 
 [tool.poetry]
 name = "webbits"
-version = "0.1.3"
+version = "0.1.4"
 homepage = "https://github.com/sfermigier/webbits"
 description = "Top-level package for Webbits."
 authors = ["Abilian SAS <sf@abilian.com>"]
